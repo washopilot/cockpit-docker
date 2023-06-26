@@ -2,6 +2,7 @@ version: "3"
 services:
   
   nginx:
+    container_name: cockpit-nginx
     build:
       context: .
       dockerfile: .docker/nginx/Dockerfile
@@ -16,6 +17,7 @@ services:
       - php
 
   php:
+    container_name: cockpit-php
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
@@ -26,4 +28,5 @@ services:
       # - ./logs/php.log:/var/log/fpm-php.www.log
 networks:
   internal:
+    name: cockpit-net
     driver: bridge
