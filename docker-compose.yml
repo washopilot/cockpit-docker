@@ -1,0 +1,29 @@
+version: "3"
+services:
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    ports: 
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - ./cockpit-core/:/var/www/html
+      # - ./logs/nginx:/var/log/nginx/
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    networks:
+      - internal
+    volumes:
+      - ./cockpit-core/:/var/www/html
+      # - ./logs/php.log:/var/log/fpm-php.www.log
+networks:
+  internal:
+    driver: bridge
