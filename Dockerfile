@@ -1,4 +1,4 @@
-FROM php:8.1.20-fpm-alpine3.18
+FROM php:8.1.20-fpm-alpine3.18 AS php
 # persistent / runtime deps
 RUN apk add --no-cache \
 		acl \
@@ -43,4 +43,6 @@ RUN set -eux; \
 		opcache \
 	;
 COPY .docker/php/cockpit.ini /usr/local/etc/php/conf.d/cockpit.ini
-COPY ./cockpit-core/ /var/www/html
+
+FROM nginx:alpine3.17 AS nginx
+COPY .docker/nginx/default.conf /etc/nginx/conf.d

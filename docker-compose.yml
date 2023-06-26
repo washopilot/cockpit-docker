@@ -5,7 +5,7 @@ services:
     container_name: cockpit-nginx
     build:
       context: .
-      dockerfile: .docker/nginx/Dockerfile
+      target: nginx
     ports: 
       - "8080:80"
     networks:
@@ -20,7 +20,7 @@ services:
     container_name: cockpit-php
     build:
       context: .
-      dockerfile: .docker/php/Dockerfile
+      target: php
     networks:
       - internal
     volumes:
