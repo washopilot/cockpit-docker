@@ -1,4 +1,4 @@
-FROM php:8.1.20-fpm-alpine3.18 AS php
+FROM php:8.1.20-fpm-alpine3.17 AS php
 # persistent / runtime deps
 RUN apk add --no-cache \
 		acl \
