@@ -1,32 +1,32 @@
-version: "3"
+version: '3'
 services:
-  
-  nginx:
-    container_name: cockpit-nginx
-    build:
-      context: .
-      target: nginx
-    ports: 
-      - "8080:80"
-    networks:
-      - internal
-    volumes:
-      - ./cockpit-core/:/var/www/html
-      # - ./logs/nginx:/var/log/nginx/
-    depends_on:
-      - php
+    nginx:
+        container_name: cockpit-nginx
+        build:
+            context: .
+            target: nginx
+        ports:
+            - '8080:80'
+        networks:
+            - internal
+        volumes:
+            - ./cockpit-core/:/var/www/html:ro
+            # - ./logs/nginx:/var/log/nginx/
+        depends_on:
+            - php
 
-  php:
-    container_name: cockpit-php
-    build:
-      context: .
-      target: php
-    networks:
-      - internal
-    volumes:
-      - ./cockpit-core/:/var/www/html
-      # - ./logs/php.log:/var/log/fpm-php.www.log
+    php:
+        container_name: cockpit-php
+        build:
+            context: .
+            target: php
+        user: '1000:1001'
+        networks:
+            - internal
+        volumes:
+            - ./cockpit-core/:/var/www/html:rw
+            # - ./logs/php.log:/var/log/fpm-php.www.log
 networks:
-  internal:
-    name: cockpit-net
-    driver: bridge
+    internal:
+        name: cockpit-net
+        driver: bridge
